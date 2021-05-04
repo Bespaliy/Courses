@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Добавить</title>
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Courses App</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <!-- <li class="active"><a href="/">Главная</a></li> -->
+          <li><a href="/">Главная</a></li>
+          <!-- <li class="active"><a href="/courses">Курсы</a></li> -->
+          <li><a href="/courses">Курсы</a></li>
+          <!-- <li class="active"><a href="/add">Добавить курс</a></li> -->
+          <li><a href="/add">Добавить курс</a></li>
+          <!-- <li class="active"><a href="/card">Корзина</a></li> -->
+          <li><a href="/card">Корзина</a></li>
+      </ul>
+    </div>
+  </nav>
+<div class="container">
+    <h1>Добавить курсы</h1>
+    <form action="/add" method="POST" name="addForm">
+        <div class="input-field">
+            <input id="title" name="title" type="text" class="validate" required>
+            <label for="title">Название курса</label>
+            <span class="helper-text" data-error="Введите названия курса"></span>
+        </div>
+
+        <div class="input-field">
+            <input id="price" name="price" type="number" class="validate" required min=1>
+            <label for="price">Цена курса</label>
+            <span class="helper-text" data-error="Введите цену"></span>
+        </div>
+
+        <div class="input-field">
+            <input id="img" name="img" type="text" class="validate" required>
+            <label for="img">URL картинки</label>
+            <span class="helper-text" data-error="Введите url картинки"></span>
+        </div>
+
+        <button class="btn btn-primary">Добавить курс</button>
+    </form>
+</div>
+<script src="../public/index.js"></script>
+</body>
+</html>
