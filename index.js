@@ -3,28 +3,23 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const render = require('./api/render');
 
-const route = {
-	'/' : () => new Promise((resolve, reject) => fs.readFile(path.join(__dirname ,'static', 'index.html'), (err, data) => {
-		if (err) reject(err);
-		else resolve(data);
-	})),
-
-	'/add' : () => new Promise((resolve, reject) => fs.readFile(path.join(__dirname ,'static', 'add.html'), (err, data) => {
-		if (err) reject(err);
-		else resolve(data);
-	}))
-}
 
 http.createServer(async (req, res) => {
 	const url = req.url;
-	console.log(url);
+	let reg = '';
 	try {
-		const data = await route[url]();
+		const page = await render(url);
 		res.writeHeader(200, {'Content-Type' :'text/html'});
-		res.end(data);
+		res.end(page);
 	} catch(e) {
 		res.statusMessage = 404;
         res.end('<h1>File not found</h1>');
 	}
+
+	req.on('data', chunk => {
+		reg += chunk;
+		console.log(reg);
+	});
 }).listen(8000);
