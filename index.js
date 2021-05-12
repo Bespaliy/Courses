@@ -1,25 +1,25 @@
 'use strict';
 
 const http = require('http');
-const fs = require('fs');
-const path = require('path');
-const render = require('./api/render');
+const staticServer = require('./static.js');
+const PORT = 8001;
 
+staticServer(8000);
 
 http.createServer(async (req, res) => {
-	const url = req.url;
 	let reg = '';
-	try {
-		const page = await render(url);
-		res.writeHeader(200, {'Content-Type' :'text/html'});
-		res.end(page);
-	} catch(e) {
-		res.statusMessage = 404;
-        res.end('<h1>File not found</h1>');
-	}
-
 	req.on('data', chunk => {
+		console.log(chunk.toString());
 		reg += chunk;
+	});
+	req.on('end', () => {
 		console.log(reg);
 	});
-}).listen(8000);
+	res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8000');
+	res.setHeader('Access-Control-Allow-Methods', '*');
+	res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
+	res.end();
+}).listen(PORT);
+
+
+console.log(`Server on port ${PORT}`);
