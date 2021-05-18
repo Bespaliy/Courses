@@ -1,7 +1,7 @@
 'use strict';
 
 const http = require('http');
-const fs = require('fs').promises;
+const fs = require('fs');
 const path = require('path');
 
 module.exports = port => {
@@ -10,9 +10,7 @@ module.exports = port => {
 		const fileExt = path.extname(url);
 		const fileName = !fileExt ? url.concat('.html') : url; 
 		try {
-			const data = await fs.readFile(path.join(__dirname, 'static', fileName));
-			res.writeHead(200, {'Content-Length': 'text/html'});
-			res.end(data);
+			fs.createReadStream(path.join(__dirname, 'static', fileName)).pipe(res);
 		} catch(e) {
 			console.log(e);
 			res.statusMessage = 404;
