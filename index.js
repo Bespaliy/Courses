@@ -2,16 +2,17 @@
 
 const http = require('http');
 const staticServer = require('./static.js');
-const user = require('./Models/User.js');
+const User = require('./Models/User.js');
 const PORT = 8001;
 
 staticServer(8000);
 
-const receiveArgs = async (req) => {
-  const buffers = [];
-  for await (const chunk of req) buffers.push(chunk);
-  const data = Buffer.concat(buffers).toString();
-  return JSON.parse(data);
+const receiveArgs = async (req) => { 
+  	const buffers = [];
+  	for await (const chunk of req) buffers.push(chunk);
+  	const data = Buffer.concat(buffers).toString();
+  	if (!data) return;
+  	return JSON.parse(data);
 };
 
 
@@ -19,7 +20,10 @@ http.createServer(async (req, res) => {
 	const url = req.url;
 	try {
 		const args = await receiveArgs(req);
-		console.log(args);
+		if (args) {
+			const user = new User(...Object.values(args));
+			await user.save();
+		} 
 	} catch(e) {
 		console.log(e)
 	}
