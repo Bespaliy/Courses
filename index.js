@@ -22,16 +22,13 @@ http.createServer(async (req, res) => {
 		const args = await receiveArgs(req);
 		if (args) {
 			const user = new User(...Object.values(args));
-			await user.save();
+			await User.save(user);
 		} 
 	} catch(e) {
-		console.log(e)
+		console.log(e);
 	}
 	res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8000');
 	res.setHeader('Access-Control-Allow-Methods', 'POST');
 	res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
 	res.end();	
-}).listen(PORT);
-
-
-console.log(`Server on port ${PORT}`);
+}).listen(PORT, console.log(`Server on port ${PORT}`));
