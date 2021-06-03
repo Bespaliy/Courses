@@ -9,7 +9,7 @@ const route = {
     const newUser = {
       login: user.login,
       password: hashedPassword
-    }; 
+    };
     new User(newUser);
     await User.save(newUser);
   },
