@@ -13,14 +13,9 @@
     <div class="nav-wrapper">
       <a href="#" class="brand-logo">Courses App</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <!-- <li class="active"><a href="/">Главная</a></li> -->
-          <li><a href="/">Главная</a></li>
-          <!-- <li class="active"><a href="/courses">Курсы</a></li> -->
-          <li><a href="/courses">Курсы</a></li>
-          <!-- <li class="active"><a href="/add">Добавить курс</a></li> -->
-          <li><a href="/add">Добавить курс</a></li>
-          <!-- <li class="active"><a href="/card">Корзина</a></li> -->
-          <li><a href="/card">Корзина</a></li>
+          <li><a href="/">Main</a></li>
+          <li><a href="/course">Add course</a></li>
+          <li><a href="/auth">Log in</a></li>
       </ul>
     </div>
   </nav>
@@ -49,8 +44,7 @@
     e.preventDefault();
     const formData = new FormData(form);
     const json = JSON.stringify(Object.fromEntries(formData.entries()));
-    console.log(json);
-    fetch('http://localhost:8001/login', {
+    fetch('http://localhost:8001/auth', {
       method: 'POST',
       headers : {'Content-Type': 'application/json'},
       body : json
